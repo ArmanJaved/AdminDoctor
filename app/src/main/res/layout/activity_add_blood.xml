@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="e.brainplow.admindoctor.MainActivity"
+    android:layout_margin="20dp">
+
+
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Blood Description"
+                android:id="@+id/textview"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:textSize="16sp"
+                android:maxLines="4"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pharname"
+                android:layout_marginTop="20dp"
+                android:hint="Blood Description"
+                android:gravity="left"/>
+
+
+            <Button
+                android:textColor="#fff"
+                android:background="#c11010"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ButtonUplophardata"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:text="Add Blood"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
