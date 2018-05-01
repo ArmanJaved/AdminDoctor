@@ -17,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -36,6 +38,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -102,7 +106,11 @@ public class MainActivity extends AppCompatActivity {
     EditText btnchose, docaddres, doccont;
 
 
+    private LinearLayout mLayout;
+    private EditText mEditText;
+    private Button mButton;
 
+    List<String> slotlist = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +203,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        mLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        mEditText = (EditText) findViewById(R.id.editText);
+        mButton = (Button) findViewById(R.id.button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLayout.addView(createNewTextView(mEditText.getText().toString()));
+            }
+        });
+        TextView textView = new TextView(this);
+        textView.setText("New text");
+
+    }
+
+    private TextView createNewTextView(String text) {
+        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        final TextView textView = new TextView(this);
+        textView.setLayoutParams(lparams);
+        textView.setText("New text: " + text);
+        mEditText.setText("");
+        slotlist.add(text);
+        return textView;
     }
 
     @Override
@@ -327,6 +358,18 @@ public class MainActivity extends AppCompatActivity {
 
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(cat).child(ImageUploadId).setValue(imageUploadInfo);
+
+
+                            for(int i=0; i < slotlist.size(); i++){
+                                String slot = slotlist.get(i);
+
+                                String newid = databaseReference.push().getKey();
+
+                                DoctorSlot doctorSlot = new DoctorSlot(slot, "NB");
+                                databaseReference.child(cat).child(ImageUploadId).child("Slot").child(newid).setValue(doctorSlot);
+
+
+                            }
                         }
                     })
                     // If something goes wrong .
